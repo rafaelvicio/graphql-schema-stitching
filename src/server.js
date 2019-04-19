@@ -3,7 +3,6 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import schema from './schema';
-import { connectMongo, loadModels } from './database/mongoose';
 
 import JobsController from './controllers/JobsControllers';
 import CompanysController from './controllers/CompanysControllers';
@@ -19,13 +18,7 @@ class Server {
     this.express = express();
     this.express.use(helmet());
     this.express.use(cors());
-    this.database();
     this.createServerApollo();
-  }
-
-  database() {
-    connectMongo();
-    loadModels();
   }
 
   async createServerApollo() {

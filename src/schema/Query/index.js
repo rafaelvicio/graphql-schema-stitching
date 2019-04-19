@@ -20,9 +20,7 @@ export const typeDef = gql`
 export const resolvers = {
   Query: {
     allCompanys: (data, args, { controllers: { Companys } }) => {
-      console.log('Chamou aqui!');
       const companys = Companys.all();
-      console.log('--->', companys);
       return companys;
     },
     company: (data, { input }, { controllers: { Companys } }) => {

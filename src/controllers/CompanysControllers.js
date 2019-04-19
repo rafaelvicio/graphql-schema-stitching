@@ -1,4 +1,4 @@
-import Company from '../models';
+import Company from '../models/Company';
 
 export default class Companys {
   async all() {
@@ -12,9 +12,7 @@ export default class Companys {
 
   async create(input) {
     try {
-      console.log('CHamou isso aqui', input);
       const company = await Company.create(input);
-      console.log('O retorno', company);
       return company;
     } catch (error) {
       return null;
