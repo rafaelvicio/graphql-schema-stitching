@@ -8,6 +8,8 @@ export const typeDef = gql`
     city: String
     site: String
     active: Boolean
+    createdAt: Date
+    updatedAt: Date
   }
 `;
 

@@ -9,7 +9,8 @@ export const typeDef = gql`
     remote: Boolean
     company: Company!
     active: Boolean
-    createdAt: String
+    createdAt: Date
+    updatedAt: Date
   }
 `;
 

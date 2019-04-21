@@ -15,6 +15,8 @@ export const typeDef = gql`
   input findJobInput {
     id: ID!
   }
+
+  scalar Date
 `;
 
 export const resolvers = {

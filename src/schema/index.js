@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import { makeExecutableSchema } from 'apollo-server-express';
+import Date from './Scalars/ParseDate';
 
 import { typeDef as QueryTypeDef, resolvers as QueryResolvers } from './Query';
 import {
@@ -20,11 +21,16 @@ export const typeDefs = [
   JobTypeDef,
 ];
 
+const OtherResolvers = {
+  Date,
+};
+
 export const resolvers = merge(
   QueryResolvers,
   MutationResolvers,
   CompanyResolvers,
   JobResolvers,
+  OtherResolvers,
 );
 
 export default makeExecutableSchema({
