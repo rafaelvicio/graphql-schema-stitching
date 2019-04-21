@@ -15,15 +15,6 @@ export const typeDef = gql`
     active: Boolean
   }
 
-  input createJobInput {
-    title: String
-    description: String
-    salary: Float
-    remote: Boolean
-    company: String
-    active: Boolean
-  }
-
   input editCompanyInput {
     id: String!
     name: String
@@ -32,15 +23,24 @@ export const typeDef = gql`
     site: String
     active: Boolean
   }
+
+  input createJobInput {
+    title: String
+    description: String
+    salary: Float
+    remote: Boolean
+    company: String
+    active: Boolean
+  }
 `;
 
 export const resolvers = {
   Mutation: {
     createCompany: (root, { input }, { controllers: { Companys } }) =>
       Companys.create(input),
-    createJob: (root, { input }, { controllers: { Jobs } }) =>
-      Jobs.create(input),
     editCompany: (root, { input }, { controllers: { Companys } }) =>
       Companys.edit(input),
+    createJob: (root, { input }, { controllers: { Jobs } }) =>
+      Jobs.create(input),
   },
 };

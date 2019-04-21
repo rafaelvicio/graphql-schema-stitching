@@ -2,9 +2,9 @@ import { gql } from 'apollo-server-express';
 
 export const typeDef = gql`
   type Query {
-    allCompanys: [Company]
+    companys: [Company]
     company(input: findCompanyInput!): Company
-    allJobs: [Job]
+    jobs: [Job]
     job(input: findJobInput!): Job
   }
 
@@ -21,7 +21,7 @@ export const typeDef = gql`
 
 export const resolvers = {
   Query: {
-    allCompanys: (data, args, { controllers: { Companys } }) => {
+    companys: (data, args, { controllers: { Companys } }) => {
       const companys = Companys.all();
       return companys;
     },
@@ -29,7 +29,7 @@ export const resolvers = {
       const companys = Companys.findById(input);
       return companys;
     },
-    allJobs: (data, args, { controllers: { Jobs } }) => {
+    jobs: (data, args, { controllers: { Jobs } }) => {
       const jobs = Jobs.all();
       return jobs;
     },
