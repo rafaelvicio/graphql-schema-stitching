@@ -19,6 +19,16 @@ export default class Companys {
     }
   }
 
+  async edit(input) {
+    try {
+      await Company.updateOne({ _id: input.id }, input);
+      const company = await Company.findById(input.id);
+      return company;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async findById({ _id }) {
     try {
       const company = await Company.findById(_id);

@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express';
 export const typeDef = gql`
   type Mutation {
     createCompany(input: createCompanyInput!): Company
+    editCompany(input: editCompanyInput!): Company
     createJob(input: createJobInput!): Job
   }
 
@@ -22,6 +23,15 @@ export const typeDef = gql`
     company: String
     active: Boolean
   }
+
+  input editCompanyInput {
+    id: String!
+    name: String
+    description: String
+    city: String
+    site: String
+    active: Boolean
+  }
 `;
 
 export const resolvers = {
@@ -30,5 +40,7 @@ export const resolvers = {
       Companys.create(input),
     createJob: (root, { input }, { controllers: { Jobs } }) =>
       Jobs.create(input),
+    editCompany: (root, { input }, { controllers: { Companys } }) =>
+      Companys.edit(input),
   },
 };
