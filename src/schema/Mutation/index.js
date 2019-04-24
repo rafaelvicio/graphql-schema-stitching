@@ -36,11 +36,11 @@ export const typeDef = gql`
 
 export const resolvers = {
   Mutation: {
-    createCompany: (root, { input }, { controllers: { Companys } }) =>
-      Companys.create(input),
-    editCompany: (root, { input }, { controllers: { Companys } }) =>
-      Companys.edit(input),
-    createJob: (root, { input }, { controllers: { Jobs } }) =>
-      Jobs.create(input),
+    createCompany: (root, { input }, { loggedUser, controllers: { Companys } }) =>
+      Companys.create(loggedUser, input),
+    editCompany: (root, { input }, { loggedUser, controllers: { Companys } }) =>
+      Companys.edit(loggedUser, input),
+    createJob: (root, { input }, { loggedUser, controllers: { Jobs } }) =>
+      Jobs.create(loggedUser, input),
   },
 };

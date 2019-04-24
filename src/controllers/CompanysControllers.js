@@ -9,7 +9,7 @@ export default class Companys {
     return companys;
   }
 
-  async create(input) {
+  async create(loggedUser, input) {
     try {
       const company = await Company.create(input);
       return company;
@@ -18,7 +18,7 @@ export default class Companys {
     }
   }
 
-  async edit(input) {
+  async edit(loggedUser, input) {
     try {
       await Company.updateOne({ _id: input.id }, input);
       const company = await Company.findById(input.id);
@@ -28,7 +28,7 @@ export default class Companys {
     }
   }
 
-  async findById({ _id }) {
+  async findById(loggedUser, { _id }) {
     try {
       const company = await Company.findById(_id);
       return company;

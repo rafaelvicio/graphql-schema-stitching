@@ -1,7 +1,7 @@
 import Job from '../models/Job';
 
 export default class Jobs {
-  async all() {
+  async all(loggedUser) {
     try {
       // const jobs = await Job.find();
       const jobs = await Job.find().populate(['company']);
@@ -11,7 +11,7 @@ export default class Jobs {
     }
   }
 
-  async create(input) {
+  async create(loggedUser, input) {
     try {
       const job = await Job.create(input);
       return job;
@@ -20,7 +20,7 @@ export default class Jobs {
     }
   }
 
-  async findById({ _id }) {
+  async findById(loggedUser, { _id }) {
     try {
       const job = await Job.findById(_id);
       return job;
