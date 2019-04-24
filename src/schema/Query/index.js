@@ -2,10 +2,20 @@ import { gql } from 'apollo-server-express';
 
 export const typeDef = gql`
   type Query {
+    user(input: findUserInput!): User
+    login(input: loginUserInput!): User
     companys: [Company]
     company(input: findCompanyInput!): Company
     jobs: [Job]
     job(input: findJobInput!): Job
+  }
+
+  input findUserInput {
+    id: ID!
+  }
+
+  input loginUserInput {
+    id: ID!
   }
 
   input findCompanyInput {
@@ -21,6 +31,14 @@ export const typeDef = gql`
 
 export const resolvers = {
   Query: {
+    user: (data, { input }, { controllers: { Auth } }) => {
+      const user = Auth.find(input);
+      return user;
+    },
+    login: (data, { input }, { controllers: { Auth } }) => {
+      const user = Auth.login(input);
+      return user;
+    },
     companys: (data, args, { loggedUser, controllers: { Companys } }) => {
       const companys = Companys.all(loggedUser);
       return companys;

@@ -2,9 +2,15 @@ import { gql } from 'apollo-server-express';
 
 export const typeDef = gql`
   type Mutation {
+    createUser(input: createUserInput!): User
     createCompany(input: createCompanyInput!): Company
     editCompany(input: editCompanyInput!): Company
     createJob(input: createJobInput!): Job
+  }
+
+  input createUserInput {
+    email: String!
+    password: String!
   }
 
   input createCompanyInput {
@@ -36,8 +42,14 @@ export const typeDef = gql`
 
 export const resolvers = {
   Mutation: {
-    createCompany: (root, { input }, { loggedUser, controllers: { Companys } }) =>
-      Companys.create(loggedUser, input),
+    createUser: (root, { input }, { controllers: { Auth } }) => {
+      Auth.create(input);
+    },
+    createCompany: (
+      root,
+      { input },
+      { loggedUser, controllers: { Companys } },
+    ) => Companys.create(loggedUser, input),
     editCompany: (root, { input }, { loggedUser, controllers: { Companys } }) =>
       Companys.edit(loggedUser, input),
     createJob: (root, { input }, { loggedUser, controllers: { Jobs } }) =>
