@@ -21,19 +21,20 @@ export const typeDef = gql`
 
 export const resolvers = {
   Query: {
-    companys: (data, args, { controllers: { Companys } }) => {
-      const companys = Companys.all();
+    companys: (data, args, { loggedUser, controllers: { Companys } }) => {
+      console.log('------>', loggedUser);
+      const companys = Companys.all(loggedUser);
       return companys;
     },
-    company: (data, { input }, { controllers: { Companys } }) => {
+    company: (data, { input }, { loggedUser, controllers: { Companys } }) => {
       const companys = Companys.findById(input);
       return companys;
     },
-    jobs: (data, args, { controllers: { Jobs } }) => {
+    jobs: (data, args, { loggedUser, controllers: { Jobs } }) => {
       const jobs = Jobs.all();
       return jobs;
     },
-    job: (data, { input }, { controllers: { Jobs } }) => {
+    job: (data, { input }, { loggedUser, controllers: { Jobs } }) => {
       const job = Jobs.findById(input);
       return job;
     },

@@ -4,6 +4,9 @@ import helmet from 'helmet';
 import cors from 'cors';
 import schema from './schema';
 
+import authentication from './auth';
+
+import AuthController from './controllers/AuthControllers';
 import JobsController from './controllers/JobsControllers';
 import CompanysController from './controllers/CompanysControllers';
 
@@ -23,7 +26,6 @@ class Server {
 
   async createServerApollo() {
     const apolloServer = new ApolloServer({
-      // eslint-disable-next-line no-unused-vars
       context: async ({ req }) => this.createContext(req),
       schema,
       playground,
@@ -34,10 +36,11 @@ class Server {
     apolloServer.applyMiddleware({ app: this.express, path: '/' });
   }
 
-  async createContext() {
+  async createContext(req) {
     return {
-      loggedUser: true,
+      loggedUser: await authentication(req),
       controllers: {
+        Auth: new AuthController(),
         Jobs: new JobsController(),
         Companys: new CompanysController(),
       },

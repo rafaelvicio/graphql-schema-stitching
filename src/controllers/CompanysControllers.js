@@ -1,13 +1,12 @@
+import { UserInputError, AuthenticationError } from 'apollo-server-express';
+
 import Company from '../models/Company';
 
 export default class Companys {
-  async all() {
-    try {
-      const companys = await Company.find();
-      return companys;
-    } catch (error) {
-      return [];
-    }
+  async all(loggedUser) {
+    if (!loggedUser) throw new AuthenticationError();
+    const companys = await Company.find();
+    return companys;
   }
 
   async create(input) {
