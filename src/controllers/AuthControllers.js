@@ -1,9 +1,23 @@
+import User from '../models/User';
+import generatedToken from '../helpers/auth';
+
 export default class Auth {
   async create(input) {
     try {
       console.log('input de create user: ', input);
-      return null;
+      // TODO - Verify email
+      // TODO - Remove Passworld from response
+      // TODO - Return Token
+      const user = await User.create(input);
+      user.password = undefined;
+      const token = await generatedToken({ id: 1000 });
+      console.log('-------------->', token);
+      return {
+        user,
+        token,
+      };
     } catch (error) {
+      console.log('Caiu aqui:', error);
       return null;
     }
   }
