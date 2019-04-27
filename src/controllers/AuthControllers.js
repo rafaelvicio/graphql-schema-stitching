@@ -27,11 +27,8 @@ export default class Auth {
         token,
       };
 
-      console.log('--->', payload);
-
       return payload;
     } catch (error) {
-      console.log('Deu erooooooo!', error);
       return null;
     }
   }
@@ -58,7 +55,6 @@ export default class Auth {
         token,
       };
     } catch (error) {
-      console.log('O erro', error);
       return null;
     }
   }
