@@ -42,16 +42,16 @@ export const typeDef = gql`
 
 export const resolvers = {
   Mutation: {
-    register: (data, { input }, { controllers: { Auth } }) =>
+    register: (root, { input }, { controllers: { Auth } }) =>
       Auth.register(input),
     createCompany: (
-      data,
+      root,
       { input },
       { loggedUser, controllers: { Companys } },
     ) => Companys.create(loggedUser, input),
-    editCompany: (data, { input }, { loggedUser, controllers: { Companys } }) =>
+    editCompany: (root, { input }, { loggedUser, controllers: { Companys } }) =>
       Companys.edit(loggedUser, input),
-    createJob: (data, { input }, { loggedUser, controllers: { Jobs } }) =>
+    createJob: (root, { input }, { loggedUser, controllers: { Jobs } }) =>
       Jobs.create(loggedUser, input),
   },
 };
