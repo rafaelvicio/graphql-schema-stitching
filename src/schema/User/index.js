@@ -9,6 +9,11 @@ export const typeDef = gql`
     createdAt: Date
     updatedAt: Date
   }
+
+  type UserPayload {
+    user: User
+    token: String
+  }
 `;
 
 export const resolvers = {

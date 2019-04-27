@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 export const typeDef = gql`
   type Query {
     user(input: findUserInput!): User
-    login(input: loginUserInput!): User
+    login(input: loginUserInput!): UserPayload
     companys: [Company]
     company(input: findCompanyInput!): Company
     jobs: [Job]
@@ -15,7 +15,8 @@ export const typeDef = gql`
   }
 
   input loginUserInput {
-    id: ID!
+    email: String!
+    password: String!
   }
 
   input findCompanyInput {

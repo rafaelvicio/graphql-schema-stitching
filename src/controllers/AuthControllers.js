@@ -1,31 +1,55 @@
+import { UserInputError, AuthenticationError } from 'apollo-server-express';
+
 import User from '../models/User';
-import generatedToken from '../helpers/auth';
+import {
+  generatedToken,
+  comparePassword,
+  validateToken,
+} from '../helpers/auth';
 
 export default class Auth {
   async create(input) {
     try {
-      console.log('input de create user: ', input);
-      // TODO - Verify email
-      // TODO - Remove Passworld from response
-      // TODO - Return Token
+      const { email } = input;
+
+      const userExisted = await User.findOne({ email });
+      if (userExisted) {
+        throw new AuthenticationError();
+      }
+
       const user = await User.create(input);
-      user.password = undefined;
-      const token = await generatedToken({ id: 1000 });
-      console.log('-------------->', token);
+      const token = await generatedToken({ id: user._id });
+
       return {
         user,
         token,
       };
     } catch (error) {
-      console.log('Caiu aqui:', error);
       return null;
     }
   }
 
   async login(input) {
     try {
-      console.log('input de login user: ', input);
-      return null;
+      const { email, password } = input;
+      const user = await User.findOne({ email }).select('+password');
+
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
+      const eigual = await comparePassword(password, user);
+
+      if (!eigual) {
+        throw new AuthenticationError();
+      }
+
+      const token = await generatedToken({ id: user._id });
+
+      return {
+        user,
+        token,
+      };
     } catch (error) {
       return null;
     }
@@ -33,8 +57,15 @@ export default class Auth {
 
   async find(input) {
     try {
-      console.log('input de find user: ', input);
+      return User.findOne({ _id: input });
+    } catch (error) {
       return null;
+    }
+  }
+
+  async validate(input) {
+    try {
+      return validateToken(input);
     } catch (error) {
       return null;
     }

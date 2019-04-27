@@ -1,18 +1,20 @@
+import AuthController from '../controllers/AuthControllers';
+
 export default async function authentication(req) {
-  const Authorization = req.headers.authorization;
-  const UserID = req.headers.userid;
+  const authController = new AuthController();
+  const { authorization } = req.headers;
 
-  if (!UserID || !Authorization) return null;
+  if (!authorization) return null;
 
-  const userFetchResult = {
-    ok: true,
-    id: 0,
-    nome: 'Rafael',
-  };
+  const { id } = await authController.validate(authorization);
 
-  // if (!userFetchResult.ok) return null;
+  if (!id) return null;
 
-  // const authUser = await userFetchResult.json();
+  const user = await authController.find(id);
 
-  return { Authorization, UserID, ...userFetchResult };
+  if (!user) return null;
+
+  // TODO - Refresh Token
+
+  return { authorization, user };
 }
