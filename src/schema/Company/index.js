@@ -7,7 +7,9 @@ export const typeDef = gql`
     description: String
     city: String
     site: String
+    admin: String
     active: Boolean
+    createdBy: String
     createdAt: Date
     updatedAt: Date
   }

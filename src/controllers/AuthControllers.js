@@ -8,10 +8,13 @@ import {
   validateToken,
 } from '../helpers/auth';
 
+const userController = new UserController();
+
 export default class Auth {
   async register(input) {
     try {
-      const user = UserController.create(input);
+      const user = await userController.create(input);
+      user.password = undefined;
 
       if (!user) {
         throw new AuthenticationError();
@@ -19,11 +22,16 @@ export default class Auth {
 
       const token = await generatedToken({ id: user._id });
 
-      return {
+      const payload = {
         user,
         token,
       };
+
+      console.log('--->', payload);
+
+      return payload;
     } catch (error) {
+      console.log('Deu erooooooo!', error);
       return null;
     }
   }
@@ -50,6 +58,7 @@ export default class Auth {
         token,
       };
     } catch (error) {
+      console.log('O erro', error);
       return null;
     }
   }

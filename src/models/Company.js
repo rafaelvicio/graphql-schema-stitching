@@ -18,9 +18,19 @@ const CompanySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
     active: {
       type: Boolean,
       default: true,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
     },
     createdAt: {
       type: Date,
