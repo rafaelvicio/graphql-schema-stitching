@@ -4,7 +4,7 @@ import Company from '../models/Company';
 
 export default class Companys {
   async all(loggedUser) {
-    if (!loggedUser) throw new AuthenticationError();
+    // if (!loggedUser) throw new AuthenticationError();
     const companys = await Company.find();
     return companys;
   }
@@ -28,9 +28,9 @@ export default class Companys {
     }
   }
 
-  async findById(loggedUser, { _id }) {
+  async find(loggedUser, input) {
     try {
-      const company = await Company.findById(_id);
+      const company = await Company.findOne(input);
       return company;
     } catch (error) {
       return null;

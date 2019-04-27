@@ -11,7 +11,7 @@ export const typeDef = gql`
   }
 
   input findUserInput {
-    id: ID!
+    _id: ID!
   }
 
   input loginUserInput {
@@ -20,11 +20,11 @@ export const typeDef = gql`
   }
 
   input findCompanyInput {
-    id: ID!
+    _id: ID!
   }
 
   input findJobInput {
-    id: ID!
+    _id: ID!
   }
 
   scalar Date
@@ -32,8 +32,8 @@ export const typeDef = gql`
 
 export const resolvers = {
   Query: {
-    user: (data, { input }, { controllers: { Auth } }) => {
-      const user = Auth.find(input);
+    user: (data, { input }, { controllers: { User } }) => {
+      const user = User.find(input);
       return user;
     },
     login: (data, { input }, { controllers: { Auth } }) => {
@@ -45,7 +45,7 @@ export const resolvers = {
       return companys;
     },
     company: (data, { input }, { loggedUser, controllers: { Companys } }) => {
-      const companys = Companys.findById(loggedUser, input);
+      const companys = Companys.find(loggedUser, input);
       return companys;
     },
     jobs: (data, args, { loggedUser, controllers: { Jobs } }) => {
@@ -53,7 +53,7 @@ export const resolvers = {
       return jobs;
     },
     job: (data, { input }, { loggedUser, controllers: { Jobs } }) => {
-      const job = Jobs.findById(loggedUser, input);
+      const job = Jobs.find(loggedUser, input);
       return job;
     },
   },

@@ -7,6 +7,7 @@ import schema from './schema';
 import authentication from './auth';
 
 import AuthController from './controllers/AuthControllers';
+import UserController from './controllers/UserControllers';
 import JobsController from './controllers/JobsControllers';
 import CompanysController from './controllers/CompanysControllers';
 
@@ -41,6 +42,7 @@ class Server {
       loggedUser: await authentication(req),
       controllers: {
         Auth: new AuthController(),
+        User: new UserController(),
         Jobs: new JobsController(),
         Companys: new CompanysController(),
       },

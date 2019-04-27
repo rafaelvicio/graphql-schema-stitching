@@ -20,9 +20,9 @@ export default class Jobs {
     }
   }
 
-  async findById(loggedUser, { _id }) {
+  async find(loggedUser, input) {
     try {
-      const job = await Job.findById(_id);
+      const job = await Job.findOne(input);
       return job;
     } catch (error) {
       return null;

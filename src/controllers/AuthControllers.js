@@ -1,4 +1,5 @@
 import { UserInputError, AuthenticationError } from 'apollo-server-express';
+import UserController from './UserControllers';
 
 import User from '../models/User';
 import {
@@ -8,16 +9,14 @@ import {
 } from '../helpers/auth';
 
 export default class Auth {
-  async create(input) {
+  async register(input) {
     try {
-      const { email } = input;
+      const user = UserController.create(input);
 
-      const userExisted = await User.findOne({ email });
-      if (userExisted) {
+      if (!user) {
         throw new AuthenticationError();
       }
 
-      const user = await User.create(input);
       const token = await generatedToken({ id: user._id });
 
       return {
@@ -50,14 +49,6 @@ export default class Auth {
         user,
         token,
       };
-    } catch (error) {
-      return null;
-    }
-  }
-
-  async find(input) {
-    try {
-      return User.findOne({ _id: input });
     } catch (error) {
       return null;
     }
