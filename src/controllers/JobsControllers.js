@@ -14,9 +14,10 @@ export default class Jobs {
   async create(loggedUser, input) {
     try {
       if (!loggedUser) throw new AuthenticationError();
+      const { _id } = loggedUser.user;
       const job = {
         ...input,
-        createdBy: loggedUser.id,
+        createdBy: _id,
       };
       return await Job.create(job);
     } catch (error) {

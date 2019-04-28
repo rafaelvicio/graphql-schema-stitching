@@ -12,11 +12,11 @@ export default class Companys {
   async create(loggedUser, input) {
     try {
       if (!loggedUser) throw new AuthenticationError();
-      const { id } = loggedUser;
+      const { _id } = loggedUser.user;
       const company = {
         ...input,
-        admin: id,
-        createdBy: id,
+        admin: _id,
+        createdBy: _id,
       };
       return await Company.create(company);
     } catch (error) {
