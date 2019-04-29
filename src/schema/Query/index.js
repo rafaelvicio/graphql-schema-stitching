@@ -30,7 +30,6 @@ export const typeDef = gql`
 
   input findApplicationsInput {
     job: ID
-    company: ID
   }
 
   scalar Date
@@ -53,7 +52,6 @@ export const resolvers = {
     company: (data, { input }, { loggedUser, controllers: { Companys } }) => {
       const companys = Companys.find(loggedUser, input);
       return companys;
-      applicationsByJob;
     },
     jobs: (data, args, { loggedUser, controllers: { Jobs } }) => {
       const jobs = Jobs.all(loggedUser);

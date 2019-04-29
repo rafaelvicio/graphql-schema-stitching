@@ -24,10 +24,9 @@ export default class Applications {
   async applicationsByJob(loggedUser, { job }) {
     if (!loggedUser) throw new AuthenticationError();
     try {
-      const applications = await Application.find({ job }).populate([
-        'user',
-        'job',
-      ]);
+      const applications = await Application.find({
+        job,
+      }).populate(['user', 'job']);
       return applications;
     } catch (error) {
       return null;
