@@ -1,4 +1,5 @@
 import { UserInputError, AuthenticationError } from 'apollo-server-express';
+import _ from 'lodash';
 
 import Application from '../models/Application';
 
@@ -21,14 +22,17 @@ export default class Applications {
     }
   }
 
-  async applicationsByJob(loggedUser, { job }) {
-    if (!loggedUser) throw new AuthenticationError();
+  async applicationsByJob(loggedUser, input) {
+    if (!loggedUser) throw new AuthenticationError('');
     try {
-      const applications = await Application.find({
-        job,
-      }).populate(['user', 'job']);
+      const payload = _.pickBy(input, _.identity);
+      const applications = await Application.find(payload).populate([
+        'user',
+        'job',
+      ]);
       return applications;
     } catch (error) {
+      console.log('error:', error);
       return null;
     }
   }

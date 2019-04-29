@@ -29,6 +29,7 @@ export const typeDef = gql`
   }
 
   input findApplicationsInput {
+    user: ID
     job: ID
   }
 
