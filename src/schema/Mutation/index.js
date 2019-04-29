@@ -6,6 +6,7 @@ export const typeDef = gql`
     createCompany(input: createCompanyInput!): Company
     editCompany(input: editCompanyInput!): Company
     createJob(input: createJobInput!): Job
+    application(input: aplicationInput!): Application
   }
 
   input RegisterInput {
@@ -38,6 +39,11 @@ export const typeDef = gql`
     company: String
     active: Boolean
   }
+
+  input aplicationInput {
+    user: String!
+    job: String!
+  }
 `;
 
 export const resolvers = {
@@ -54,5 +60,10 @@ export const resolvers = {
       Companys.edit(loggedUser, input),
     createJob: (root, { input }, { loggedUser, controllers: { Jobs } }) =>
       Jobs.create(loggedUser, input),
+    application: (
+      root,
+      { input },
+      { loggedUser, controllers: { Applications } },
+    ) => Applications.create(loggedUser, input),
   },
 };

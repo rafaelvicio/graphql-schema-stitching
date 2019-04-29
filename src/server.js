@@ -10,6 +10,7 @@ import AuthController from './controllers/AuthControllers';
 import UserController from './controllers/UserControllers';
 import JobsController from './controllers/JobsControllers';
 import CompanysController from './controllers/CompanysControllers';
+import ApplicationController from './controllers/ApplicationsControllers';
 
 const playground = {
   settings: {
@@ -45,6 +46,7 @@ class Server {
         User: new UserController(),
         Jobs: new JobsController(),
         Companys: new CompanysController(),
+        Applications: new ApplicationController(),
       },
     };
   }

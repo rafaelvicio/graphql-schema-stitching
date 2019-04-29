@@ -14,6 +14,10 @@ import {
   resolvers as CompanyResolvers,
 } from './Company';
 import { typeDef as JobTypeDef, resolvers as JobResolvers } from './Job';
+import {
+  typeDef as ApplicationypeDef,
+  resolvers as ApplicationResolvers,
+} from './Application';
 
 export const typeDefs = [
   QueryTypeDef,
@@ -21,6 +25,7 @@ export const typeDefs = [
   UserTypeDef,
   CompanyTypeDef,
   JobTypeDef,
+  ApplicationypeDef,
 ];
 
 const OtherResolvers = {
@@ -33,6 +38,7 @@ export const resolvers = merge(
   UserResolvers,
   CompanyResolvers,
   JobResolvers,
+  ApplicationResolvers,
   OtherResolvers,
 );
 

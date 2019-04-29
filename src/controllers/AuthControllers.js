@@ -2,10 +2,7 @@ import { UserInputError, AuthenticationError } from 'apollo-server-express';
 import UserController from './UserControllers';
 
 import User from '../models/User';
-import {
-  generatedToken,
-  comparePassword
-} from '../helpers/auth';
+import { generatedToken, comparePassword } from '../helpers/auth';
 
 export default class Auth {
   async register(input) {
