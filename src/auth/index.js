@@ -1,14 +1,14 @@
-import AuthController from '../controllers/AuthControllers';
 import UserController from '../controllers/UserControllers';
 
+import { validateToken } from '../helpers/auth';
+
 export default async function authentication(req) {
-  const authController = new AuthController();
   const userController = new UserController();
   const { authorization } = req.headers;
 
   if (!authorization) return null;
 
-  const { id } = await authController.validate(authorization);
+  const { id } = await validateToken(authorization);
 
   if (!id) return null;
 

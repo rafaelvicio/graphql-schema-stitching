@@ -4,8 +4,7 @@ import UserController from './UserControllers';
 import User from '../models/User';
 import {
   generatedToken,
-  comparePassword,
-  validateToken,
+  comparePassword
 } from '../helpers/auth';
 
 export default class Auth {
@@ -49,14 +48,6 @@ export default class Auth {
         user,
         token,
       };
-    } catch (error) {
-      return null;
-    }
-  }
-
-  async validate(input) {
-    try {
-      return validateToken(input);
     } catch (error) {
       return null;
     }
