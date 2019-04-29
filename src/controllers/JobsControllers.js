@@ -1,9 +1,9 @@
+import { UserInputError, AuthenticationError } from 'apollo-server-express';
 import Job from '../models/Job';
 
 export default class Jobs {
   async all(loggedUser) {
     try {
-      // const jobs = await Job.find();
       const jobs = await Job.find().populate(['company']);
       return jobs;
     } catch (error) {
@@ -13,8 +13,13 @@ export default class Jobs {
 
   async create(loggedUser, input) {
     try {
-      const job = await Job.create(input);
-      return job;
+      if (!loggedUser) throw new AuthenticationError();
+      const { _id } = loggedUser.user;
+      const job = {
+        ...input,
+        createdBy: _id,
+      };
+      return await Job.create(job);
     } catch (error) {
       return null;
     }

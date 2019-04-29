@@ -4,10 +4,13 @@ import UserController from './UserControllers';
 import User from '../models/User';
 import { generatedToken, comparePassword } from '../helpers/auth';
 
+const userController = new UserController();
+
 export default class Auth {
   async register(input) {
     try {
-      const user = UserController.create(input);
+      const user = await userController.create(input);
+      user.password = undefined;
 
       if (!user) {
         throw new AuthenticationError();
@@ -15,10 +18,12 @@ export default class Auth {
 
       const token = await generatedToken({ id: user._id });
 
-      return {
+      const payload = {
         user,
         token,
       };
+
+      return payload;
     } catch (error) {
       return null;
     }

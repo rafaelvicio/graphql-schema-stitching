@@ -38,27 +38,27 @@ export const typeDef = gql`
 
 export const resolvers = {
   Query: {
-    user: (data, { input }, { controllers: { User } }) => {
+    user: (root, { input }, { controllers: { User } }) => {
       const user = User.find(input);
       return user;
     },
-    login: (data, { input }, { controllers: { Auth } }) => {
+    login: (root, { input }, { controllers: { Auth } }) => {
       const user = Auth.login(input);
       return user;
     },
-    companys: (data, args, { loggedUser, controllers: { Companys } }) => {
+    companys: (root, args, { loggedUser, controllers: { Companys } }) => {
       const companys = Companys.all(loggedUser);
       return companys;
     },
-    company: (data, { input }, { loggedUser, controllers: { Companys } }) => {
+    company: (root, { input }, { loggedUser, controllers: { Companys } }) => {
       const companys = Companys.find(loggedUser, input);
       return companys;
     },
-    jobs: (data, args, { loggedUser, controllers: { Jobs } }) => {
+    jobs: (root, args, { loggedUser, controllers: { Jobs } }) => {
       const jobs = Jobs.all(loggedUser);
       return jobs;
     },
-    job: (data, { input }, { loggedUser, controllers: { Jobs } }) => {
+    job: (root, { input }, { loggedUser, controllers: { Jobs } }) => {
       const job = Jobs.find(loggedUser, input);
       return job;
     },

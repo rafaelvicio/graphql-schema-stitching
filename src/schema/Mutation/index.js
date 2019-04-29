@@ -48,9 +48,8 @@ export const typeDef = gql`
 
 export const resolvers = {
   Mutation: {
-    register: (root, { input }, { controllers: { Auth } }) => {
-      Auth.register(input);
-    },
+    register: (root, { input }, { controllers: { Auth } }) =>
+      Auth.register(input),
     createCompany: (
       root,
       { input },

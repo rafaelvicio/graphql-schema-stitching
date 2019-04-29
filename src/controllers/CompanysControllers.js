@@ -11,8 +11,14 @@ export default class Companys {
 
   async create(loggedUser, input) {
     try {
-      const company = await Company.create(input);
-      return company;
+      if (!loggedUser) throw new AuthenticationError();
+      const { _id } = loggedUser.user;
+      const company = {
+        ...input,
+        admin: _id,
+        createdBy: _id,
+      };
+      return await Company.create(company);
     } catch (error) {
       return null;
     }
